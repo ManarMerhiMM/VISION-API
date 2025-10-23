@@ -1,0 +1,50 @@
+# Laravel / PHP
+/vendor
+/node_modules
+/.pint.json
+/.phpunit.result.cache
+/.vscode
+/.idea
+/.env
+/.env.local
+/.env.testing
+/.env.production
+/homestead.yaml
+/.homestead.yaml
+/.sass-cache
+/.history
+
+# Laravel Storage
+/storage/*.key
+/storage/framework/cache/data
+/storage/framework/sessions
+/storage/framework/views
+/storage/logs/*.log
+
+# Laravel Mix / Vite / Frontend
+/public/build
+/public/hot
+/public/mix-manifest.json
+/resources/js/dist
+/resources/css/dist
+
+# OS & IDE specific
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Composer & Node packages
+composer.lock
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Testing / coverage
+/phpunit.xml
+/phpunit.result.cache
+/coverage/
+
+# Optional: if using Docker
+docker-compose.override.yml
+.env.docker
