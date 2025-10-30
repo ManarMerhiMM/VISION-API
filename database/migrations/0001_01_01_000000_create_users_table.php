@@ -6,44 +6,37 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+
+            $table->boolean('is_admin')->default(false);
+            $table->string('username')->unique();
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
-        });
 
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->primary();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
-        });
+            $table->string('gender', 6)->nullable(); //'male' or 'female'
+            $table->boolean('is_activated')->default(true);
+            $table->date('date_of_birth')->nullable();
+            $table->string('account_type', 17)->nullable(); //'visually impaired' or 'normal'
 
-        Schema::create('sessions', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->foreignId('user_id')->nullable()->index();
-            $table->string('ip_address', 45)->nullable();
-            $table->text('user_agent')->nullable();
-            $table->longText('payload');
-            $table->integer('last_activity')->index();
+            $table->string('caretaker_phone_number', 32)->nullable();
+            $table->string('caretaker_name', 100)->nullable();
+
+
+            $table->unsignedTinyInteger('testimonial_rate')
+                ->nullable()
+                ->check('testimonial_rate BETWEEN 1 AND 5');
+
+            $table->text('testimonial_message')->nullable();
+
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
-        Schema::dropIfExists('sessions');
     }
 };
