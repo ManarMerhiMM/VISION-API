@@ -19,8 +19,7 @@ return new class extends Migration
             $table->decimal('galvanic_skin_resistance', 8, 3)->nullable(); //2–20 µS (microsiemens) typical, may rise up to 50
             $table->decimal('relative_humidity', 5, 2)->nullable(); //20–90% depending on the environment.
 
-    
-            $table->timestamp('recorded_at')->useCurrent();
+            $table->dateTime('recorded_at')->useCurrent();
         });
     }
 

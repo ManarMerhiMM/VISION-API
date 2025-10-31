@@ -17,7 +17,9 @@ return new class extends Migration
             $table->text('message');
             $table->boolean('status')->default(false); // e.g. false=pending, true=resolved
 
-            $table->timestamp('raised_at')->useCurrent();
+
+    
+            $table->dateTime('raised_at')->useCurrent();
         });
     }
 

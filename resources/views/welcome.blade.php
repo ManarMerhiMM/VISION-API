@@ -233,19 +233,17 @@
             <h3>Features</h3>
             <ol class="list">
                 <li>Authentication &amp; authorization with Laravel Sanctum</li>
-                <li>RESTful endpoints for users, devices, and biometrics</li>
+                <li>RESTful endpoints for users, biometrics, and alerts</li>
                 <li>Data persistence &amp; aggregation via Eloquent (MySQL)</li>
                 <li>CORS/HTTPS-ready integration for web &amp; mobile</li>
-                <li>Validation and rate limiting for protection</li>
             </ol>
 
             <h3>Security Practices</h3>
             <ol class="list">
                 <li>All sensitive routes protected by Sanctum tokens (Bearer)</li>
-                <li>CORS restricted to known origins (configure in <code>config/cors.php</code>)</li>
+                <li>CORS restricted to known origins</li>
                 <li>HTTPS/TLS recommended in production</li>
                 <li>Form Request validation on inputs</li>
-                <li>API rate limits via <code>RouteServiceProvider / throttle:api</code></li>
             </ol>
         </div>
     </section>
