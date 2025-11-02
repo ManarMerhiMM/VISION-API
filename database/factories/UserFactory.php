@@ -41,7 +41,7 @@ class UserFactory extends Factory
             'is_admin' => false,
             'username' => $this->faker->unique()->userName(),
             'email' => $this->faker->unique()->safeEmail(),
-            'password' => Hash::make('password'), // default password for testing
+            'password' => 'password', // default password for testing
             'gender' => $this->faker->randomElement(['male', 'female']),
             'is_activated' => $this->faker->boolean(90), // 90% chance active
             'date_of_birth' => $this->faker->dateTimeBetween('-80 years', '-10 years')->format('Y-m-d'),
