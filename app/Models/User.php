@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
+use App\Notifications\CustomResetPassword;
 
 
 class User extends Authenticatable
@@ -46,11 +47,16 @@ class User extends Authenticatable
         'testimonial_rate' => 'integer',
     ];
 
+    public function sendPasswordResetNotification($token): void
+    {
+        $this->notify(new CustomResetPassword($token));
+    }
+
     public function setPasswordAttribute($value)
     {
-        if (!empty($value)) {
-            $this->attributes['password'] = Hash::make($value);
-        }
+        $this->attributes['password'] = Hash::needsRehash($value)
+            ? Hash::make($value)
+            : $value;
     }
 
     public function records()

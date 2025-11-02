@@ -94,6 +94,7 @@ return [
         Illuminate\Filesystem\FilesystemServiceProvider::class, // ✅ Fixes "Target class [files]" error
         Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
         Illuminate\Hashing\HashServiceProvider::class,
+        Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\Mail\MailServiceProvider::class,
         Illuminate\Notifications\NotificationServiceProvider::class,
         Illuminate\Pagination\PaginationServiceProvider::class,
@@ -101,6 +102,7 @@ return [
         Illuminate\Queue\QueueServiceProvider::class,
         Illuminate\Session\SessionServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
         Illuminate\Cookie\CookieServiceProvider::class,
         Illuminate\Translation\TranslationServiceProvider::class,
 
@@ -151,6 +153,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Cookie' => Illuminate\Support\Facades\Cookie::class,
+        'Password'  => Illuminate\Support\Facades\Password::class,
     ],
 
 ];
