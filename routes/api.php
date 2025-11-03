@@ -22,6 +22,8 @@ Route::post('/signup', [AuthController::class, 'signup']);
 
 Route::get('/testimonials', [UserController::class, 'testimonials']);
 
+Route::get('/admins', [UserController::class, 'admins']);
+
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/me', fn(Request $request) => $request->user());
@@ -30,4 +32,8 @@ Route::middleware('auth:sanctum')->group(function () {
         $request->user()->currentAccessToken()->delete();
         return response()->json(['message' => 'Logged out']);
     });
+
+    Route::patch('/user', [UserController::class, 'update']);
+
+    Route::post('/testimonial', [UserController::class, 'upsertTestimonial']);
 });

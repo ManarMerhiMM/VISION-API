@@ -61,10 +61,10 @@ class AuthController extends Controller
         ])->validate();
 
         $email = strtolower(trim($data['email']));
-        $base  = \Illuminate\Support\Str::of(explode('@', $email)[0])->lower()->slug('_');
+        $base  = Str::of(explode('@', $email)[0])->lower()->slug('_');
         $username = $this->generateUniqueUsername((string) $base);
 
-        $plainPassword = \Illuminate\Support\Str::random(12);
+        $plainPassword = Str::random(12);
 
         $user = \App\Models\User::create([
             'username' => $username,
@@ -102,7 +102,7 @@ class AuthController extends Controller
     private function generateUniqueUsername(string $base): string
     {
         $candidate = $base;
-        while (\App\Models\User::where('username', $candidate)->exists()) {
+        while (User::where('username', $candidate)->exists()) {
             $candidate = $base . '_' . Str::lower(Str::random(4));
         }
         return $candidate;
