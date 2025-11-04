@@ -5,6 +5,8 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AlertController;
+use App\Http\Controllers\RecordController;
 
 Route::get('/status', function () {
     return response()->json(['status' => 'ok']);
@@ -33,7 +35,19 @@ Route::middleware('auth:sanctum')->group(function () {
         return response()->json(['message' => 'Logged out']);
     });
 
+    Route::get('/users', [UserController::class, 'index']);
+
     Route::patch('/user', [UserController::class, 'update']);
 
     Route::post('/testimonial', [UserController::class, 'upsertTestimonial']);
+
+    Route::post('/alert', [AlertController::class, 'store']);
+    Route::post('/solve/{alert}', [AlertController::class, 'solve']);
+    Route::get('/alerts/{user}', [AlertController::class, 'getUserAlerts']);
+    
+    Route::post('/record', [RecordController::class, 'store']);
+    Route::get('/records/{user}', [RecordController::class, 'getUserRecords']);
+
+    Route::post('/deactivate/{user}', [UserController::class, 'deactivate']);
+    Route::post('/activate/{user}', [UserController::class, 'activate']);
 });

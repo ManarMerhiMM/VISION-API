@@ -1,5 +1,7 @@
+<!-- Home Blade: API overview landing page (mobile-friendly) -->
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>{{ config('app.name', 'VISION-API') }}</title>
@@ -17,7 +19,9 @@
             --border: #30363d;
         }
 
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
 
         body {
             margin: 0;
@@ -45,19 +49,6 @@
             margin-bottom: 0.5rem;
         }
 
-        .logo {
-            width: 40px;
-            height: 40px;
-            background: var(--accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-weight: 600;
-            font-size: 1.5rem;
-        }
-
         .tag {
             color: var(--accent);
             font-weight: 600;
@@ -82,7 +73,9 @@
             color: var(--text);
         }
 
-        .muted { color: var(--muted); }
+        .muted {
+            color: var(--muted);
+        }
 
         .grid {
             display: grid;
@@ -91,7 +84,9 @@
         }
 
         @media (min-width: 768px) {
-            .grid { grid-template-columns: 1fr 1fr; }
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
         }
 
         .card {
@@ -99,7 +94,7 @@
             background: var(--card);
             border-radius: 8px;
             padding: 1.25rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
             border: 1px solid var(--border);
         }
 
@@ -133,6 +128,8 @@
             border-radius: 4px;
             color: var(--text);
             font-size: 0.875rem;
+            overflow-wrap: anywhere;
+            /* prevent overflow on small screens */
         }
 
         pre {
@@ -156,25 +153,31 @@
             white-space: nowrap;
         }
 
+        /* Request overview list */
         .quick-links {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px 15px;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column;
+            /* stack items */
+            align-items: flex-start;
+            /* left align */
+            gap: 8px;
             margin-top: 1rem;
         }
 
         .quick-item {
             display: flex;
             align-items: center;
-            gap: 6px;
-            flex: 1 1 auto;
-            min-width: 200px;
-            justify-content: center;
+            gap: 8px;
+            justify-content: flex-start;
+            width: 100%;
+            flex-wrap: wrap;
+            /* allow wrapping on narrow screens */
         }
 
-        .ok { color: var(--ok); font-weight: 600; }
+        .ok {
+            color: var(--ok);
+            font-weight: 600;
+        }
 
         footer {
             text-align: center;
@@ -183,120 +186,210 @@
             font-size: 0.875rem;
         }
 
-        /* Make Features section span full width */
         .grid .card.full {
             grid-column: 1 / -1;
         }
+
+        /* ---------- Mobile polish ---------- */
+        @media (max-width: 600px) {
+            .wrap {
+                padding: 0 0.75rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .card {
+                padding: 1rem;
+            }
+
+            .quick-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+
+            .pill {
+                font-size: 0.7rem;
+                padding: 2px 6px;
+            }
+
+            code {
+                font-size: 0.82rem;
+            }
+
+            .muted {
+                font-size: 0.95rem;
+            }
+        }
     </style>
 </head>
+
 <body>
-<div class="wrap">
+    <div class="wrap">
 
-    <section class="hero card">
-        <div class="brand">
-            <div>
-                <div class="tag">VISION — Wearable Ecosystem for the Visually Impaired</div>
-                <h1>{{ config('app.name', 'VISION-API') }}</h1>
-            </div>
-        </div>
-        <p class="muted">
-            A Laravel-based REST API powering the VISION platform to enhance mobility, autonomy, and safety for visually impaired users.
-            This backend connects the mobile app and website to a shared MySQL database with secure auth, validation, and rate-limiting.
-        </p>
-
-        <div class="grid">
-            <div class="card">
-                <h3>Quick Links</h3>
-                <div class="quick-links">
-                    <div class="quick-item"><span class="pill">Base URL</span> <code>{{ url('/') }}</code></div>
-                    <div class="quick-item"><span class="pill">API Prefix</span> <code>/api</code></div>
-                    <div class="quick-item"><span class="pill">Status</span> <a href="{{ url('/api/status') }}"><code>/api/status</code></a> <span id="status" class="ok"></span></div>
-                    <div class="quick-item"><span class="pill">Auth</span> <code>Laravel Sanctum</code></div>
-                    <div class="quick-item"><span class="pill">Format</span> <code>JSON (REST)</code></div>
+        <section class="hero card">
+            <div class="brand">
+                <div>
+                    <div class="tag">VISION — Wearable Ecosystem for the Visually Impaired</div>
+                    <h1>{{ config('app.name', 'VISION-API') }}</h1>
                 </div>
             </div>
+            <p class="muted">
+                A Laravel-based REST API powering the VISION platform to enhance mobility, autonomy, and safety for
+                visually impaired users.
+                This backend connects the mobile app and website to a shared MySQL database with secure auth,
+                validation, and rate-limiting.
+            </p>
 
-            <div class="card">
-                <h3>Tech Stack</h3>
-                <div class="kvs">
-                    <div><strong>Framework:</strong> Laravel 12</div>
-                    <div><strong>Database:</strong> MySQL</div>
-                    <div><strong>Auth:</strong> Sanctum</div>
-                    <div><strong>Clients:</strong> React (website), React Native (mobile)</div>
+            <div class="grid">
+                <div class="card full">
+                    <h3>Request Overview</h3>
+                    <div class="quick-links">
+                        <div class="quick-item"><span class="pill">Base URL</span> <code>{{ url('/') }}</code>
+                        </div>
+                        <div class="quick-item"><span class="pill">API Prefix</span> <code>/api</code></div>
+                        <div class="quick-item">
+                            <span class="pill">Status</span>
+                            <a href="{{ url('/api/status') }}"><code>/api/status</code></a>
+                            <span id="status" class="ok"></span>
+                        </div>
+                        <div class="quick-item"><span class="pill">Auth</span> <code>Laravel Sanctum</code></div>
+                        <div class="quick-item"><span class="pill">Format</span> <code>JSON (REST)</code></div>
+
+                        <!-- Public endpoints -->
+                        <div class="quick-item"><span class="pill">POST</span> <code>/api/login</code> <span
+                                class="muted">— login (rate-limited)</span></div>
+                        <div class="quick-item"><span class="pill">POST</span> <code>/api/forgot-password</code> <span
+                                class="muted">— send reset link (rate-limited)</span></div>
+                        <div class="quick-item"><span class="pill">POST</span> <code>/api/reset-password</code> <span
+                                class="muted">— complete password reset (rate-limited)</span></div>
+                        <div class="quick-item"><span class="pill">POST</span> <code>/api/signup</code> <span
+                                class="muted">— create account (emails the cridentials)</span></div>
+                        <div class="quick-item"><span class="pill">GET</span> <code>/api/testimonials</code> <span
+                                class="muted">— public testimonials</span></div>
+                        <div class="quick-item"><span class="pill">GET</span> <code>/api/admins</code> <span
+                                class="muted">— list admins</span></div>
+
+                        <!-- Authenticated (Sanctum) endpoints -->
+                        <div class="quick-item"><span class="pill">GET</span> <code>/api/me</code> <span
+                                class="muted">— current user (🔒)</span></div>
+                        <div class="quick-item"><span class="pill">POST</span> <code>/api/logout</code> <span
+                                class="muted">— revoke token (🔒)</span></div>
+                        <div class="quick-item"><span class="pill">GET</span> <code>/api/users</code> <span
+                                class="muted">— all users except requester (admin-only 🔒)</span></div>
+                        <div class="quick-item"><span class="pill">PATCH</span> <code>/api/user</code> <span
+                                class="muted">— update profile (🔒)</span></div>
+                        <div class="quick-item"><span class="pill">POST</span> <code>/api/testimonial</code> <span
+                                class="muted">— create/update/delete testimonial (🔒)</span></div>
+
+                        <div class="quick-item"><span class="pill">POST</span> <code>/api/alert</code> <span
+                                class="muted">— create alert (🔒)</span></div>
+                        <div class="quick-item"><span class="pill">POST</span> <code>/api/solve/{alert}</code> <span
+                                class="muted">— solve own alert (🔒)</span></div>
+                        <div class="quick-item"><span class="pill">GET</span> <code>/api/alerts/{user}</code> <span
+                                class="muted">— user’s alerts (self/admin 🔒)</span></div>
+
+                        <div class="quick-item"><span class="pill">POST</span> <code>/api/record</code> <span
+                                class="muted">— create record (🔒)</span></div>
+                        <div class="quick-item"><span class="pill">GET</span> <code>/api/records/{user}</code> <span
+                                class="muted">— user’s records (self/admin 🔒)</span></div>
+
+                        <div class="quick-item">
+                            <span class="pill">POST</span> <code>/api/deactivate/{user}</code>
+                            <span class="muted">— deactivate (self/admin; admins can’t deactivate other admins
+                                🔒)</span>
+                        </div>
+                        <div class="quick-item"><span class="pill">POST</span> <code>/api/activate/{user}</code> <span
+                                class="muted">— activate (admin-only 🔒)</span></div>
+                    </div>
+                </div>
+
+                <!-- Tech Stack under Request Overview -->
+                <div class="card full">
+                    <h3>Tech Stack</h3>
+                    <div class="kvs">
+                        <div><strong>Framework:</strong> Laravel 12</div>
+                        <div><strong>Database:</strong> MySQL</div>
+                        <div><strong>Auth:</strong> Sanctum</div>
+                        <div><strong>Clients:</strong> React (website), React Native (mobile)</div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="grid">
-        <div class="card full">
-            <h3>Features</h3>
+        <section class="grid">
+            <div class="card full">
+                <h3>Features</h3>
+                <ol class="list">
+                    <li>Authentication &amp; authorization with Laravel Sanctum</li>
+                    <li>RESTful endpoints for users, biometrics, and alerts</li>
+                    <li>Data persistence &amp; aggregation via Eloquent (MySQL)</li>
+                    <li>CORS/HTTPS-ready integration for web &amp; mobile</li>
+                </ol>
+
+                <h3>Security Practices</h3>
+                <ol class="list">
+                    <li>All sensitive routes protected by Sanctum tokens (Bearer)</li>
+                    <li>CORS restricted to known origins</li>
+                    <li>HTTPS/TLS recommended in production</li>
+                    <li>Form Request validation on inputs</li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="card">
+            <h3>System Data Flow</h3>
             <ol class="list">
-                <li>Authentication &amp; authorization with Laravel Sanctum</li>
-                <li>RESTful endpoints for users, biometrics, and alerts</li>
-                <li>Data persistence &amp; aggregation via Eloquent (MySQL)</li>
-                <li>CORS/HTTPS-ready integration for web &amp; mobile</li>
+                <li>Raspberry Pi collects live processed biometric data (SPO2, Heart Rate, Galvanic Skin Resistance, and
+                    Relative Humidity).</li>
+                <li>React Native app reads via BLE and shows realtime metrics.</li>
+                <li>Mobile app periodically sends readings to this API (HTTPS).</li>
+                <li>API validates, stores, and aggregates data in MySQL.</li>
+                <li>React web dashboard queries the same API for analytics.</li>
             </ol>
+        </section>
 
-            <h3>Security Practices</h3>
-            <ol class="list">
-                <li>All sensitive routes protected by Sanctum tokens (Bearer)</li>
-                <li>CORS restricted to known origins</li>
-                <li>HTTPS/TLS recommended in production</li>
-                <li>Form Request validation on inputs</li>
-            </ol>
-        </div>
-    </section>
+        <section class="card">
+            <h3>Contributors</h3>
+            <ul class="list">
+                <li><strong>Backend</strong>: Manar Merhi</li>
+                <li><strong>Frontend (Web)</strong>: Malek Shibli</li>
+                <li><strong>Mobile (React Native)</strong>: Manar Merhi</li>
+                <li><strong>Embedded/Hardware</strong>: Mohammad Shaaban</li>
+                <li><strong>Computer Vision &amp; ML</strong>: Mohammad El Halabi</li>
+                <li><strong>Biometric Processing</strong>: Abdulrahman Nakouzi</li>
+            </ul>
+        </section>
 
-    <section class="card">
-        <h3>System Data Flow</h3>
-        <ol class="list">
-            <li>Raspberry Pi collects live processed biometric data (SPO2, Heart Rate, Galvanic Skin Resistance, and Relative Humidity).</li>
-            <li>React Native app reads via BLE and shows realtime metrics.</li>
-            <li>Mobile app periodically sends readings to this API (HTTPS).</li>
-            <li>API validates, stores, and aggregates data in MySQL.</li>
-            <li>React web dashboard queries the same API for analytics.</li>
-        </ol>
-    </section>
+        <footer>
+            © 2025 VISION Project Team — Academic &amp; research use.
+        </footer>
+    </div>
 
-    <section class="card">
-        <h3>Contributors</h3>
-        <ul class="list">
-            <li><strong>Backend</strong>: Manar Merhi</li>
-            <li><strong>Frontend (Web)</strong>: Malek Shibli</li>
-            <li><strong>Mobile (React Native)</strong>: Manar Merhi</li>
-            <li><strong>Embedded/Hardware</strong>: Mohammad Shaaban</li>
-            <li><strong>Computer Vision &amp; ML</strong>: Mohammad El Halabi</li>
-            <li><strong>Biometric Processing</strong>: Abdulrahman Nakouzi</li>
-        </ul>
-    </section>
-
-    <footer>
-        © 2025 VISION Project Team — Academic &amp; research use.
-    </footer>
-</div>
-
-<script>
-(async () => {
-    try {
-        const res = await fetch('{{ url('/api/status') }}');
-        const data = await res.json();
-        const el = document.getElementById('status');
-        if (res.ok && data.status === 'ok') {
-            el.textContent = 'API Healthy';
-            el.style.color = '#3fb950';
-        } else {
-            el.textContent = 'API Error';
-            el.style.color = '#f85149';
-        }
-    } catch {
-        const el = document.getElementById('status');
-        if (el) {
-            el.textContent = 'API Unreachable';
-            el.style.color = '#f85149';
-        }
-    }
-})();
-</script>
+    <script>
+        (async () => {
+            try {
+                const res = await fetch('{{ url('/api/status') }}');
+                const data = await res.json();
+                const el = document.getElementById('status');
+                if (res.ok && data.status === 'ok') {
+                    el.textContent = 'API Healthy';
+                    el.style.color = '#3fb950';
+                } else {
+                    el.textContent = 'API Error';
+                    el.style.color = '#f85149';
+                }
+            } catch {
+                const el = document.getElementById('status');
+                if (el) {
+                    el.textContent = 'API Unreachable';
+                    el.style.color = '#f85149';
+                }
+            }
+        })();
+    </script>
 </body>
+
 </html>

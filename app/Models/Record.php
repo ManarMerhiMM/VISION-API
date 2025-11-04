@@ -21,6 +21,7 @@ class Record extends Model
 
 
     protected $fillable = [
+        'user_id',
         'spo2',
         'heart_rate',
         'galvanic_skin_resistance',

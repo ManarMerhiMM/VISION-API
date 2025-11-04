@@ -121,4 +121,98 @@ class UserController extends Controller
             'message' => 'Testimonial saved.',
         ], 200);
     }
+
+    public function deactivate(Request $request, User $user)
+    {
+        $authUser = $request->user();
+
+        // Authorization check: must be admin OR same user
+        if (!$authUser->is_admin && $authUser->id !== $user->id) {
+            return response()->json([
+                'message' => 'You are not authorized to deactivate this user.'
+            ], 403);
+        }
+
+        // Prevent admins from deactivating other admins
+        if ($user->is_admin && $authUser->id !== $user->id) {
+            return response()->json([
+                'message' => 'Admins cannot deactivate other admins.'
+            ], 403);
+        }
+
+        // Already deactivated
+        if (!$user->is_activated) {
+            return response()->json([
+                'message' => 'User is already deactivated.'
+            ], 200);
+        }
+
+        // Deactivate
+        $user->update(['is_activated' => false]);
+
+        return response()->json([
+            'message' => 'User deactivated successfully.'
+        ], 200);
+    }
+
+    public function activate(Request $request, User $user)
+    {
+        $authUser = $request->user();
+
+        // Only admins can activate anyone (including other admins)
+        if (!$authUser->is_admin) {
+            return response()->json([
+                'message' => 'Only admins can activate users.'
+            ], 403);
+        }
+
+        // Already active
+        if ($user->is_activated) {
+            return response()->json([
+                'message' => 'User is already active.'
+            ], 200);
+        }
+
+        // Activate user
+        $user->update(['is_activated' => true]);
+
+        return response()->json([
+            'message' => 'User activated successfully.'
+        ], 200);
+    }
+
+    public function index(Request $request)
+    {
+        $authUser = $request->user();
+
+        // Only admins can view all users
+        if (!$authUser->is_admin) {
+            return response()->json([
+                'message' => 'You are not authorized to view users.'
+            ], 403);
+        }
+
+        // Retrieve all users except the admin making the request
+        $users = User::where('id', '!=', $authUser->id)
+            ->select(
+                'id',
+                'is_admin',
+                'username',
+                'email',
+                'gender',
+                'is_activated',
+                'date_of_birth',
+                'account_type',
+                'caretaker_name',
+                'caretaker_phone_number',
+                'testimonial_rate',
+                'testimonial_message',
+                'created_at'
+            )
+            ->get();
+
+        return response()->json([
+            'data' => $users
+        ], 200);
+    }
 }
