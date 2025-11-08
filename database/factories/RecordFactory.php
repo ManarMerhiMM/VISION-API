@@ -30,9 +30,9 @@ class RecordFactory extends Factory
         return [
             'user_id' => $user->id,
             'spo2' => $this->faker->randomFloat(2, 90, 100),
-            'heart_rate' => $this->faker->numberBetween(40, 200),
+            'heart_rate' => $this->faker->numberBetween(50, 200),
             'galvanic_skin_resistance' => $this->faker->randomFloat(3, 2, 50),
-            'relative_humidity' => $this->faker->randomFloat(2, 20, 90),
+            'relative_humidity' => $this->faker->randomFloat(2, 5, 90),
             'recorded_at' => $recordedAt,
         ];
     }

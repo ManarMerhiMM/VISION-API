@@ -29,7 +29,7 @@ class AlertFactory extends Factory
             'Abnormal heart rate detected. Please check your vitals.',
             'Low SpO₂ levels detected. Consider resting or seeking assistance.',
             'Sudden change in skin resistance detected — possible stress event.',
-            'High humidity detected around the device sensors - weather is turning bad',
+            'High humidity detected - possible bad weather',
         ];
 
         // Pick a message
