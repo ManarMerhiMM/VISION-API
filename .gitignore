@@ -41,9 +41,9 @@ yarn.lock
 pnpm-lock.yaml
 
 # Testing / coverage
-/phpunit.xml
 /phpunit.result.cache
 /coverage/
+.phpunit.cache
 
 # Optional: if using Docker
 docker-compose.override.yml
